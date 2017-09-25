@@ -22,8 +22,11 @@ urlpatterns = [
     url(r'^admin_users/', views.admin_users),
     url(r'^admin_products/', views.admin_products),
     url(r'^add_product/', views.add_product),
-    url(r'^delete_product/', views.delete_product),
+    url(r'^delete_product/(?P<pid>[0-9]+)/', views.delete_product),
     url(r'^update_product/(?P<pid>[0-9]+)/', views.update_product),
+
+    url(r'^delete_user/(?P<uid>[0-9]+)/', views.delete_user),
+    url(r'^update_user/(?P<uid>[0-9]+)/', views.update_user),
 ]
 
 if settings.DEBUG:

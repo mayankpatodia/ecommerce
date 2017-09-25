@@ -132,16 +132,6 @@ def admin_products(request):
 
 
 def add_product(request):
-    request.session['email'] = None
-    return redirect('/login?res=0')
-
-
-def delete_product(request):
-    request.session['email'] = None
-    return redirect('/login?res=0')
-
-
-def update_product(request, pid):
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
@@ -149,11 +139,63 @@ def update_product(request, pid):
             description = form.cleaned_data['description']
             price = form.cleaned_data['price']
             image_url = form.cleaned_data['image_url']
-            Product.objects.filter(product_id=pid).update(name=name,description=description, price=price,
+            product = Product(name=name,description=description, price=price,
                                                                     image_url=image_url)
+            product.save()
             return redirect('/admin_products/')
+    else:
+        form = ProductForm()
+        return render(request,'add_product.html',{'form':form})
+
+
+def delete_product(request, pid):
+    Product.objects.filter(product_id=pid).delete()
+    return redirect('/admin_products/')
+
+
+def update_product(request, pid):
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            prod = Product.objects.get(product_id=pid)
+            prod.name = form.cleaned_data['name']
+            prod.description = form.cleaned_data['description']
+            prod.price = form.cleaned_data['price']
+            prod.image_url = request.FILES['image_url']
+            # if not image_url:
+            #     prod.image_url = image_url
+                # Product.objects.filter(product_id=pid).update(name=name,description=description, price=price,
+                #                                                         image_url=image_url)
+            prod.save()
+            # else:
+            #     Product.objects.filter(product_id=pid).update(name=name,description=description, price=price)
+            return redirect('/admin_products/')
+        else:
+        # return redirect('/admin_products/')
+            return render(request,'view_products.html',{'form':form})
     else:
         form = ProductForm()
         prod = Product.objects.get(product_id = pid)
         return render(request,'edit_product.html',{'form':form,'prod': prod})
+
+
+def delete_user(request, uid):
+    Ec_User.objects.filter(user_id=uid).delete()
+    return redirect('/admin_users/')
+
+
+def update_user(request, uid):
+    if request.method == "POST":
+        form = Ec_UserForm(request.POST)
+        if form.is_valid():
+            user = Ec_User.objects.get(user_id=uid)
+            user.fullname = form.cleaned_data['fullname']
+            user.email = form.cleaned_data['email']
+            user.password = form.cleaned_data['password']
+            user.save()
+        return redirect('/admin_users/')
+    else:
+        form = Ec_UserForm()
+        user = Ec_User.objects.get(user_id = uid)
+        return render(request,'edit_user.html',{'form':form,'user': user})
 

@@ -28,9 +28,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-xs-12 horizontal">
-                        <h1>Products</h1>
+                        <h1>Products {{form.errors}} {{im}}</h1>
                         <div class="form-group pull-right">
-                            <button class="btn btn-default">Add New</button>
+                            <a href="/add_product" ><button class="btn btn-default">Add New</button></a>
                         </div>
 						<span class="counter pull-right"></span>
 						<table class="table table-hover table-bordered results table-responsive">
@@ -62,7 +62,7 @@
                                             <td>{{prod.description}}</td>
                                             <td>{{prod.price}}</td>
                                             <td><a href='/update_product/{{prod.product_id}}'>Edit</a></td>
-                                            <td><a href='/delete_product/{{prod_product_id}}'>Delete</a></td>
+                                            <td><a href='/delete_product/{{prod.product_id}}'>Delete</a></td>
                                         </tr>
                                     {% endfor %}
                                 {% endif %}

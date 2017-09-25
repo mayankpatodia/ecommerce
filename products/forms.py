@@ -32,7 +32,7 @@ class ProductForm(forms.Form):
     description = forms.CharField(max_length=250)
     price = forms.DecimalField(max_digits=5,decimal_places=0)
 
-class UserForm(forms.Form):
+class Ec_UserForm(forms.Form):
     fullname = forms.CharField(max_length=50)
     email = forms.CharField(max_length=50)
     password = forms.CharField(max_length=50)

@@ -34,27 +34,23 @@
             <div class="row">
                 <div class="col-lg-6 col-xs-12">
                     <?php echo $msg; ?>
-                    <h1>Edit Product</h1>
-                    <form name="form" action="" method="post" novalidate enctype="multipart/form-data">{% csrf_token %}
+                    <h1>Edit User</h1>
+                    <form name="form" action="" method="post" novalidate>{% csrf_token %}
                         <div class="form-group">
-                          <label for="name">Name:</label>
-                          <input type="text" class="form-control" id="name" name="name" value="{{prod.name}}" />
+                          <label for="fullname">Name:</label>
+                          <input type="text" class="form-control" id="fullname" name="fullname" value="{{user.fullname}}" />
                         </div>
                         <div class="form-group">
-                          <label for="description">Description:</label>
-                          <input type="text" class="form-control" id="description" name="description" value="{{prod.description}}"/>
+                          <label for="email">Email:</label>
+                          <input type="text" class="form-control" id="email" name="email" value="{{user.email}}"/>
                         </div>
                         <div class="form-group">
-                          <label for="price">Price:</label>
-                          <input type="text" class="form-control" id="price" name="price" value="{{prod.price}}"/>
+                          <label for="password">Password:</label>
+                          <input type="password" class="form-control" id="password" name="password" value="{{user.password}}"/>
                         </div>
-                        <img src="/media/{{prod.image_url}}" style="width:150px;"/>
-                        <br/><br/>Select image to upload:
-                        <input type="file" name="image_url" id="image_url" value="/media/{{prod.image_url}}"/>
                         <div class="form-group">
-                            <input type="submit" value="Update New Product" class="btn btn-default pull-right"/>
+                            <input type="submit" value="Update User" class="btn btn-default pull-right"/>
                         </div>
-
                     </form>
                 </div>
             </div>
