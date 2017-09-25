@@ -75,7 +75,7 @@ def products(request):
             except:
                 return redirect('/login?res=1')
         else:
-            return redirect('/  login?res=2')
+            return redirect('/login?res=2')
     else:
         email = request.session.get('email')
         if not email:
@@ -121,14 +121,16 @@ def admin_logout(request):
     return redirect('/admin_login?res=0')
 
 
-def admin_users(request):
+def admin_users(request, res=None):
     Users = Ec_User.objects.all()
-    return render(request, 'view_users.html', {'res': 1, 'Users': Users})
+    d = request.GET.get('res', None)
+    return render(request, 'view_users.html', {'res': d, 'Users': Users})
 
 
-def admin_products(request):
+def admin_products(request, res=None):
     Products = Product.objects.all()
-    return render(request, 'view_products.html', {'res': 1, 'Products': Products})
+    d = request.GET.get('res', None)
+    return render(request, 'view_products.html', {'res': d, 'Products': Products})
 
 
 def add_product(request):
@@ -162,17 +164,10 @@ def update_product(request, pid):
             prod.description = form.cleaned_data['description']
             prod.price = form.cleaned_data['price']
             prod.image_url = request.FILES['image_url']
-            # if not image_url:
-            #     prod.image_url = image_url
-                # Product.objects.filter(product_id=pid).update(name=name,description=description, price=price,
-                #                                                         image_url=image_url)
             prod.save()
-            # else:
-            #     Product.objects.filter(product_id=pid).update(name=name,description=description, price=price)
-            return redirect('/admin_products/')
+            return redirect('/admin_products?res=2')
         else:
-        # return redirect('/admin_products/')
-            return render(request,'view_products.html',{'form':form})
+            return redirect('/admin_products?res=1')
     else:
         form = ProductForm()
         prod = Product.objects.get(product_id = pid)
@@ -193,7 +188,9 @@ def update_user(request, uid):
             user.email = form.cleaned_data['email']
             user.password = form.cleaned_data['password']
             user.save()
-        return redirect('/admin_users/')
+            return redirect('/admin_users?res=2')
+        else:
+            return redirect('/admin_users?res=1')
     else:
         form = Ec_UserForm()
         user = Ec_User.objects.get(user_id = uid)

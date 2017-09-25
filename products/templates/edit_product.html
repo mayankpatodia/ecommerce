@@ -19,7 +19,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/">ECommerce</a>
+              <a class="navbar-brand" href="/admin_products/">&lt; Products</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,7 +50,7 @@
                         </div>
                         <img src="/media/{{prod.image_url}}" style="width:150px;"/>
                         <br/><br/>Select image to upload:
-                        <input type="file" name="image_url" id="image_url" value="/media/{{prod.image_url}}"/>
+                        <input type="file" name="image_url" id="image_url" value="/media/{{prod.image_url}}" required/>
                         <div class="form-group">
                             <input type="submit" value="Update New Product" class="btn btn-default pull-right"/>
                         </div>

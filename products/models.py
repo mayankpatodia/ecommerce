@@ -19,7 +19,7 @@ class Ec_User(models.Model):
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
-    image_url = models.ImageField(upload_to='product_images/', default='default.png')
+    image_url = models.ImageField(upload_to='product_images', default='default.png')
     description = models.CharField(max_length=250)
     price = models.DecimalField(max_digits=5,decimal_places=0)
 
