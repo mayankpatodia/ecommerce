@@ -1,0 +1,53 @@
+/* ------------- LOGIN PAGE --------------*/
+.signin-panel{
+    margin-bottom: 20px;
+    margin-top: 50px;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0px 0px 8px 1px #ccc;
+}
+
+/* --------------- REGISTER PAGE ---------- */
+.register-panel{
+    margin-bottom: 20px;
+    margin-top: 50px;
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0px 0px 8px 1px #ccc;
+}
+
+/* --------------- PRODUCT PAGE -------------- */
+.productbox {
+    background-color:#ffffff;
+    padding:10px;
+    margin-bottom:10px;
+    -webkit-box-shadow: 0 8px 6px -6px  #999;
+    -moz-box-shadow: 0 8px 6px -6px  #999;
+    box-shadow: 0px 0px 8px 1px #ccc;
+    border-radius: 5px;
+}
+
+.producttitle {
+    margin-top: 2px;
+    padding:5px 0 5px 0;
+    font-size: 1.6em;
+}
+
+.productprice {
+    border-top:1px solid #dadada;
+    padding-top:5px;
+}
+
+.pricetext {
+    font-size:1.4em;
+}
+
+.productimage{
+    width: 100%;
+}
+
+#myModal-image_url{
+    max-width: 100%;
+}
