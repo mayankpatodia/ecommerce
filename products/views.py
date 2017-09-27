@@ -9,6 +9,7 @@ from django.shortcuts import render
 
 
 # Create your views here.
+# Home page
 def home(request):
     user_email = request.session.get('email')
     if not user_email:
@@ -17,9 +18,12 @@ def home(request):
     return render(request, 'index.html', {'res': 1, 'user': user})
 
 
+# Login page
 def login(request, res=None):
     form = LoginForm()
     d = request.GET.get('res', None)
+
+    # Check user already logged in
     email = request.session.get('email')
     if not email:
         return render(request,'login.html',{'form':form, 'res': d})
@@ -29,7 +33,7 @@ def login(request, res=None):
         return redirect('/products/')
 
 
-
+# Register page
 def register(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -38,6 +42,7 @@ def register(request):
             e = form.cleaned_data['email']
             p = form.cleaned_data['password']
             cp = form.cleaned_data['confirm_password']
+            # check passwords
             if p == cp:
                 user = Ec_User(fullname = n,
                                   email = e,
@@ -49,17 +54,17 @@ def register(request):
         else:
             return render(request, 'register.html', {'form': form, 'res': 2})
     else:
+        # Check user already logged in
         email = request.session.get('email')
         if not email:
             return render(request, 'register.html', {'res': 0})
         else:
-            user = Ec_User.objects.get(email=email)
-            Prods = Product.objects.all()
+            # user = Ec_User.objects.get(email=email)
+            # Prods = Product.objects.all()
             return redirect('/products/')
 
 
-
-
+# View Products page
 def products(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -86,19 +91,21 @@ def products(request):
             return render(request, 'products.html', {'res': 1, 'user': user, 'Prods': Prods})
 
 
-
-def product_details(request):
-    return render(request, 'product_details.html', {})
-
+# Logout user
 def logout_user(request):
     request.session['email'] = None
     return redirect('/login?res=0')
 
 
+# ----------------------------- ADMIN -----------------------------
+
+# Admin login
 def admin_login(request, res=None):
     form = AdminLoginForm()
     return render(request,'admin_login.html',{'form':form})
 
+
+# Admin home
 def admin_home(request, res=None):
     if request.method == "POST":
         form = AdminLoginForm(request.POST)
@@ -117,22 +124,26 @@ def admin_home(request, res=None):
         return redirect('/admin_login/')
 
 
+# Admin logout
 def admin_logout(request):
     return redirect('/admin_login?res=0')
 
 
+# Admin view user details
 def admin_users(request, res=None):
     Users = Ec_User.objects.all()
     d = request.GET.get('res', None)
     return render(request, 'view_users.html', {'res': d, 'Users': Users})
 
 
+# Admin view product details
 def admin_products(request, res=None):
     Products = Product.objects.all()
     d = request.GET.get('res', None)
     return render(request, 'view_products.html', {'res': d, 'Products': Products})
 
 
+# Admin add product
 def add_product(request):
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
@@ -150,11 +161,13 @@ def add_product(request):
         return render(request,'add_product.html',{'form':form})
 
 
+# Admin delete product
 def delete_product(request, pid):
     Product.objects.filter(product_id=pid).delete()
     return redirect('/admin_products/')
 
 
+# Admin update product
 def update_product(request, pid):
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
@@ -174,11 +187,13 @@ def update_product(request, pid):
         return render(request,'edit_product.html',{'form':form,'prod': prod})
 
 
+# Admin delete user
 def delete_user(request, uid):
     Ec_User.objects.filter(user_id=uid).delete()
     return redirect('/admin_users/')
 
 
+# Admin update user data
 def update_user(request, uid):
     if request.method == "POST":
         form = Ec_UserForm(request.POST)

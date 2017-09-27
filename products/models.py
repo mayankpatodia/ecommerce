@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 
-# Create your models here.
+# User table
 class Ec_User(models.Model):
     user_id = models.AutoField(primary_key=True)
     fullname = models.CharField(max_length=50, null=True, blank=True)
@@ -16,6 +16,7 @@ class Ec_User(models.Model):
         return s
 
 
+# Product table
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
@@ -28,6 +29,7 @@ class Product(models.Model):
         return s
 
 
+#Admin Account table
 class Ec_Admin(models.Model):
     user_id = models.AutoField(primary_key=True)
     fullname = models.CharField(max_length=50, null=True, blank=True)
